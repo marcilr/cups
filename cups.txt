@@ -6,6 +6,26 @@ Copyright (C) 2017 by Raymond E. Marcil <marcilr@gmail.com>
 CUPS printing
 
 
+Local interface:
+  http://localhost:631/
+
+
+Denali Towers Xeros printer:
+  Xerox WorkCentre 7845
+
+Got working unders CUPS with:
+  Description:	Xerox WorkCentre 7845
+  Location:	Denali Towers
+  Driver:	Xerox Phaser 7760GX - CUPS+Gutenprint v5.2.10 (grayscale, 2-sided printing)
+  Connection:	dnssd://Xerox%20WorkCentre%207845%20(9C%3A93%3A4E%3A55%3A51%3A09)._ipp._tcp.local/
+  Defaults:	job-sheets=none, none media=na_letter_8.5x11in sides=one-sided
+
+Select highest Xerox printer driver less then 7845
+that was "Xerox Phaser 7760GX - CUPS+Gutenprint v5.2.10"
+
+Test page printed just fine.
+
+
 Links
 =====
 CUPS archlinux
