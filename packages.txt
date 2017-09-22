@@ -1,0 +1,27 @@
+packages.txt
+Created Fri Sep 22 09:04:10 AKDT 2017
+Copyright (C) 2017 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+CUPS packages under Debian jessie 8.9 amd64
+
+
+cups - Common UNIX Printing System(tm) - PPD/driver support, web interface
+
+cups-backend-bjnp - printer backend for Canon BJNP protocol
+cups-browsed - OpenPrinting CUPS Filters - cups-browsed
+cups-bsd - Common UNIX Printing System(tm) - BSD commands
+cups-client - Common UNIX Printing System(tm) - client programs (SysV)
+cups-common - Common UNIX Printing System(tm) - common files
+cups-core-drivers - Common UNIX Printing System(tm) - PPD-less printing
+cups-daemon - Common UNIX Printing System(tm) - daemon
+cups-dbg - Common UNIX Printing System(tm) - debugging symbols
+cups-driver-gutenprint - transitional dummy package for gutenprint printer driver
+cups-filters-core-drivers - OpenPrinting CUPS Filters - PPD-less printing
+cups-filters - OpenPrinting CUPS Filters - Main Package
+cups-pdf - PDF writer backend for CUPS (dummy transitional package)
+cups-pk-helper - PolicyKit helper to configure cups with fine-grained privileges
+cups-ppdc - Common UNIX Printing System(tm) - PPD manipulation utilities
+cups-server-common - Common UNIX Printing System(tm) - server common files
+cups-tea4cups - Swiss Army's knife of advanced CUPS administrators
+
