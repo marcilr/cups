@@ -1,0 +1,13 @@
+links.txt
+Created Fri Sep 22 09:01:11 AKDT 2017
+Copyright (C) 2017 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+CUPS printing related links
+
+
+Links
+=====
+CUPS archlinux
+https://wiki.archlinux.org/index.php/CUPS
+marcilr@covellite:~/git/src/cups$ 
