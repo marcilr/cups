@@ -3,7 +3,7 @@ Created Fri Sep 22 08:59:31 AKDT 2017
 Copyright (C) 2017 by Raymond E. Marcil <marcilr@gmail.com>
 
 
-CUPS printing
+CUPS (Common UNIX Printing System)
 
 
 Local interface:
