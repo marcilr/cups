@@ -1,5 +1,5 @@
 cups.txt
-Created Fri Sep 22 08:59:31 AKDT 2017
+Created Created Fri Sep 22 08:59:31 AKDT 2017
 Copyright (C) 2017 by Raymond E. Marcil <marcilr@gmail.com>
 
 
@@ -10,7 +10,281 @@ Local interface:
   http://localhost:631/
 
 
+Migrated from /usr/local/pdf/README
+
+
+The Brother MFC-8680DN laser printer is online at:
+192.168.87.20
+
+
+CUPS (Common UNIX Printing System) appears to be
+be installed on malachite with the cups-common 
+package:
+
+ii   cups-common   2.2.10-6+deb10u3   all   \
+Common UNIX Printing System(tm) - common files
+
+
+Enable CUPS service with the command:
+  sudo systemctl start cups
+  [sudo] password for marcilr: 
+  Failed to start cups.service: Unit cups.service not found.
+
+  sudo systemctl enable cups
+
+1. Reinstall cups:
+sudo apt-get install --reinstall cups cups-browsed \
+cups-client cups-common cups-daemon cups-server-common
+
+Verify installed:
+
+$ ps aux | grep '[c]ups'
+root     13955  0.0  0.0  29204  8284 ?        Ss   16:29   0:00 /usr/sbin/cupsd -l
+root     14003  0.0  0.0 185300 11096 ?        Ssl  16:29   0:00 /usr/sbin/cups-browsed
+$
+
+2. Start the cups service with:
+$ sudo service cups start
+Job for cups.socket failed.
+See "systemctl status cups.socket" and "journalctl -xe" for details.
+$ 
+
+$ sudo systemctl status cups.socket
+● cups.socket - CUPS Scheduler
+   Loaded: loaded (/lib/systemd/system/cups.socket; \
+enabled; vendor preset: enabled)
+   Active: inactive (dead)
+   Listen: /run/cups/cups.sock (Stream)
+
+Jul 21 16:30:08 malachite systemd[1]: \
+cups.socket: Socket service cups.service already active, refusing.
+Jul 21 16:30:08 malachite systemd[1]: \
+Failed to listen on CUPS Scheduler.
+$ 
+
+--CUPS not running - [SOLVED]
+  « on: September 19, 2017, 07:40:24 pm »
+  https://linuxforums.org.uk/index.php?topic=13212.0
+
+Installed:
+  system-config-printer - graphical interface to configure the printing system
+  (not configured yet)
+
+Installed the first 3:
+  okular - universal document viewer
+  okular-dev - development files for the Okular libraries
+  okular-extra-backends - additional document format support for Okular
+  okular-mobile - mobile support for Okular
+  ...
+  Wow, installed quite the package list.
+
+3. How to configure CUPS
+Now that cups is installed need to configure"
+
+--How to configure a print server with Ubuntu Server, CUPS, and Bonjour
+  https://www.techrepublic.com/article/how-to-configure-a-print-server-with-ubuntu-server-cups-and-bonjour/
+
+# grep -ni "Browsing On" /etc/cups/cupsd.conf
+20:Browsing On
+
+Looks good.
+
+# grep -ni "Listen" /etc/cups/cupsd.conf
+15:# Only listen for connections from the local machine.
+16:Listen localhost:631
+17:Listen /run/cups/cups.sock
+
+Looks good.
+
+# grep -ni "Location" /etc/cups/cupsd.conf
+30:<Location />
+32:</Location>
+35:<Location /admin>
+37:</Location>
+40:<Location /admin/conf>
+44:</Location>
+47:<Location /admin/log>
+51:</Location>
+#
+
+# nano +30 /etc/cups/cupsd.conf
+# Restrict access to the server...
+<Location />
+  Order allow,deny
+</Location>
+
+Looks good.
+
+Add printer:
+
+1. Open Print Settings:
+click Debian (upper left icon) > Settings > Print Settings
+
+2. At Print Settings - localhost
+click Server > Connect...   <=== This gets Add button ungreyed
+
+2. At Connect to CUPS server
+CUPS server: /run/cups/cups.sock
+click Connect
+
+3. At Print Settings - localhost
+click Add pulldown
+
+4. At Authentication enter marcilr password.
+click Authenticate
+
+5. At New Printer
+click Network Printer to open
+click Brother MFC-8680DN 192.168.87.20   <=== It found it!
+
+Observe:
+  Description
+  AppSocket/JetDirect network printer via DNS-SD
+
+  Connection
+  AppSocket/JetDirect network printer vai DNS-SD
+  LPD/LPR queue 'BINARY_P1'
+
+click Forward
+
+6. Watch Searching Drivers....
+
+7. At New Printer, Select Driver
+x Select Printer from database
+  Provide PPD file
+  Search for a printer driver download
+  
+
+Makes
+Generic     <=== Was default
+...
+x Brother   <=== Selected
+...
+
+click Forward
+
+8. At New Printer
+Choose Driver
+DCP-1200
+  Brother DCP-1200 - CUPS+Gutenprint v5.3.1 [en] (recommended)
+
+click Forward
+
+9. At New Printer
+Describe Printer
+
+Printer Name
+  Short name for printer such as "laserjet"
+  Brother-MFC-8680DN
+
+Description (optional)
+  Human-readble description such as "HP Laserjet with Duplexer"
+  Brother MFC-8680DN
+  
+Location (optional)
+  Human-readable location such as "Lab 1"
+  Computer room
+  click Apply
+
+10. Authenticate marcilr again
+click Authenticate
+
+11. At Would you like to print a test page?
+click Print test Page
+
+12. Watch Submitted
+Test page submitted as job 1
+click OK
+
+13. Now at Printer Propertis - 'Brother-MFC-8680DN' on localhost
+
+It worked!
+
+Got debian test page!
+
+
+
+--How to configure CUPS
+  https://www.techrepublic.com/article/how-to-configure-a-print-server-with-ubuntu-server-cups-and-bonjour/
+
+
+Debian Wiki printing portal
+Use CUPS!
+https://wiki.debian.org/Printing
+
+Laser printers:
+  Install the "printer-driver-brlaser" package
+  https://wiki.debian.org/Brother
+
+# aptitude install printer-driver-brlaser
+  
+
+PDF Viewers / Readers
+=====================
+Debian has multiple PDF viewers packaged, such as:
+
+atril - for MATE desktop
+evince - for GNOME desktop
+kpdf - for KDE 3 desktop
+mupdf - for any X window manager (no extra features)
+okular - for KDE 4 desktop
+qpdfview - tabbed document viewer - QT
+viewpdf.app - for GNUstep environment
+xpdf - for advanced features other X window managers (no extra features)
+--PDF
+  Debian Wiki
+  https://wiki.debian.org/PDF
+
+
 Links
 =====
 CUPS archlinux
 https://wiki.archlinux.org/index.php/CUPS
+
+PDF Viewers / Readers
+https://wiki.debian.org/PDF
+
+Linux PDF Viewer: Best 15 PDF Readers Reviewed for Linux Users
+https://www.ubuntupit.com/linux-pdf-viewer-best-15-pdf-readers-reviewed-for-linux-users/
+
+
+PDF Studio Viewer
+PDF Studio Viewer is a Free PDF Viewer for Windows, Mac and Linux
+"This project's file releases are suspended because this project
+has not made source code available under an Open Source license,
+as required by SourceForge's Terms of Use."
+hilltopyodelerPosted 03/14/2019
+PDF Studio Viewer is the best PDF viewer that I've found for Linux!
+It's easy to install from their shell script, it's not too resource 
+hungry, and it's packed full of features!  It's also has a really
+clean looking interface and is intuitive to use.  For creating PDF
+files, check out their PDF Studio Pro edition - it's packed full of
+features! qoppa.com/pdfstudio
+Brought to you by: qoppa
+https://sourceforge.net/projects/pdf-studio-viewer/
+
+
+You can try our free PDF reader on Linux, called PDF Studio Viewer.
+It has advanced search and print options and many viewing tools.
+It can open encrypted and signed PDFs.
+--oses31297381 LATEST
+  New Here , Dec 21, 2017
+  https://community.adobe.com/t5/acrobat-reader/which-pdf-reader-does-adobe-recommend-for-linux/td-p/8260662?page=1
+
+
+Printing files
+Printing PDF files
+Adobe has released an Acrobat reader for Linux, and it's 
+available on the Adobe home page http://www.adobe.com. 
+Its predecessor, xpdf, is also available.  Both should 
+print to a postscript device.
+https://www.tldp.org/HOWTO/Printing-Usage-HOWTO-3.html
+
+Filelist
+========
+Managing Projects with GNU Make (6.5MB)
+by Robert Mecklenburg
+O’Reilly Media, Inc
+Pages: 302
+Downloaded Tue 21 Jul 2020
+http://uploads.mitechie.com/books/Managing_Projects_with_GNU_Make_Third_Edition.pdf
