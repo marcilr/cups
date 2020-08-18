@@ -12,5 +12,13 @@ CUPS archlinux
 https://wiki.archlinux.org/index.php/CUPS
 marcilr@covellite:~/git/src/cups$ 
 
+Debian Wiki printing portal
+Use CUPS!
+https://wiki.debian.org/Printing
+
+Laser printers:
+Install the "printer-driver-brlaser" package
+https://wiki.debian.org/Brother
+
 Printing files
 https://www.tldp.org/HOWTO/Printing-Usage-HOWTO-3.html
