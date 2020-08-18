@@ -29,3 +29,5 @@ printer-driver-brlaser
   Laser printers:
   Install the "printer-driver-brlaser" package
   https://wiki.debian.org/Brother
+  # aptitude install printer-driver-brlaser
+
