@@ -25,3 +25,7 @@ cups-ppdc - Common UNIX Printing System(tm) - PPD manipulation utilities
 cups-server-common - Common UNIX Printing System(tm) - server common files
 cups-tea4cups - Swiss Army's knife of advanced CUPS administrators
 
+printer-driver-brlaser
+  Laser printers:
+  Install the "printer-driver-brlaser" package
+  https://wiki.debian.org/Brother
